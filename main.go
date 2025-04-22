@@ -30,7 +30,7 @@ func main() {
 // 			http.Error(w, "Request timed out", http.StatusRequestTimeout)
 
 // }}
-
+//USE CASE OF TIME OUT ARE LONG RUNNING API CALLS AND DATABASE QUERIES ALSO NETWORK CALLS,CONCURRENT REQUESTS
 func exampleTimeout(ctx context.Context) {
 	ctxWithTimeout, cancel := context.WithTimeout(ctx, 5*time.Second);
 	defer cancel()
