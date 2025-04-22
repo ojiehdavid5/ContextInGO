@@ -13,23 +13,23 @@ func main() {
 	ctx := context.Background()
 	exampleTimeout(ctx)
 
-	// exampleWithValues()
-	// http.HandleFunc("/", helloHandler)
+	exampleWithValues()
+	http.HandleFunc("/", helloHandler)
 	http.ListenAndServe(":8080", nil)
 }
 
 
-// func helloHandler(w http.ResponseWriter, r *http.Request) {
-// 	ctx,cancel:= context.WithTimeout(r.Context(), 3*time.Second)
-// 	defer cancel()
-// 	select {
-// 	case <-time.After(1*time.Second):
-// 		fmt.Println("Api response")
-// 		case <-ctx.Done():
-// 			fmt.Println("oh no my timeout expired",ctx.Err())
-// 			http.Error(w, "Request timed out", http.StatusRequestTimeout)
+func helloHandler(w http.ResponseWriter, r *http.Request) {
+	ctx,cancel:= context.WithTimeout(r.Context(), 3*time.Second)
+	defer cancel()
+	select {
+	case <-time.After(1*time.Second):
+		fmt.Println("Api response")
+		case <-ctx.Done():
+			fmt.Println("oh no my timeout expired",ctx.Err())
+			http.Error(w, "Request timed out", http.StatusRequestTimeout)
 
-// }}
+}}
 //USE CASE OF TIME OUT ARE LONG RUNNING API CALLS AND DATABASE QUERIES ALSO NETWORK CALLS,CONCURRENT REQUESTS
 func exampleTimeout(ctx context.Context) {
 	ctxWithTimeout, cancel := context.WithTimeout(ctx, 5*time.Second);
@@ -52,15 +52,15 @@ case <-done:
 }
 
 
-// func exampleWithValues(){
-// 	const username string="chuks"
-// 	ctx := context.Background()
-// 	ctxWithValue:=context.WithValue(ctx,username,"chuks")
-// 	if UserId,ok:=ctxWithValue.Value(username).(string);ok{
-// 		fmt.Println("UserId is",UserId)
+func exampleWithValues(){
+	const username string="chuks"
+	ctx := context.Background()
+	ctxWithValue:=context.WithValue(ctx,username,"chuks")
+	if UserId,ok:=ctxWithValue.Value(username).(string);ok{
+		fmt.Println("UserId is",UserId)
 	
 
-// }else{
-// 	fmt.Println("UserId not found")
-// }
-// }
+}else{
+	fmt.Println("UserId not found")
+}
+}
